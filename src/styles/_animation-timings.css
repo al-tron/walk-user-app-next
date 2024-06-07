@@ -1,0 +1,7 @@
+.c-animation-quick {
+  @apply transition duration-100 ease-in-out;
+}
+
+.c-animation-medium {
+  @apply transition duration-300 ease-in-out;
+}

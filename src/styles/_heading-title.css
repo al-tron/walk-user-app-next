@@ -1,0 +1,7 @@
+.c-heading-title-shadow::before {
+  @apply absolute left-0 top-0 -z-10 w-full text-black;
+  content: attr(data-text);
+  text-shadow:
+    0px 0px 20px rgba(0, 0, 0, 0.5),
+    0px 0px 10px rgba(0, 0, 0, 0.75);
+}

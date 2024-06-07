@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '_topo-bg';
+@import '_heading-title';
+@import '_content-area';
+@import '_animation-timings';
+@import '_open-layers';
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    @apply underline-offset-4;
+  }
+
+  abbr {
+    @apply no-underline;
+  }
+}
+
+@layer utilities {
+  .c-hide-scroll {
+    @apply overflow-y-scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .c-hide-scroll-webkit::-webkit-scrollbar {
+    @apply hidden;
+  }
+}

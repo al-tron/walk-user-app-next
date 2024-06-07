@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id                String         @id
+  email             String         @unique
+  isEmailVerified   Boolean
+  name              String
+  givenName         String
+  familyName        String
+  locale            String
+  profilePictureUrl String
+  createdAt         DateTime       @default(now()) @db.Timestamptz()
+  updatedAt         DateTime       @updatedAt @db.Timestamptz()
+  deletedAt         DateTime?      @db.Timestamptz()
+  oauthAccount      OauthAccount[]
+  sessions          Session[]
+}
+
+model OauthAccount {
+  id             String       @id
+  userId         String
+  providerUserId String
+  provider       ProviderEnum
+  accessToken    String
+  refreshToken   String?
+  expiresAt      DateTime     @db.Timestamptz()
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerUserId, provider])
+}
+
+enum ProviderEnum {
+  GOOGLE
+  APPLE
+  STRAVA
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime @db.Timestamptz()
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Baggables {
+  id            Int                      @id
+  name          String
+  slug          String
+  height        Int
+  drop          Int
+  latitude      Float
+  longitude     Float
+  baggableTypes BaggablesBaggableTypes[]
+}
+
+model BaggableTypes {
+  id        Int                      @id
+  type      String                   @unique
+  baggables BaggablesBaggableTypes[]
+}
+
+model BaggablesBaggableTypes {
+  id             Int           @id @default(autoincrement())
+  baggableId     Int
+  baggableTypeId Int
+  baggable       Baggables     @relation(fields: [baggableId], references: [id])
+  baggableType   BaggableTypes @relation(fields: [baggableTypeId], references: [id])
+
+  @@unique([baggableId, baggableTypeId])
+}

@@ -1,0 +1,71 @@
+.c-content-area {
+  @apply text-gray-800 dark:text-slate-300;
+}
+
+.c-content-area--dark-bg {
+  @apply text-gray-50 dark:text-slate-200;
+}
+
+.c-content-area h2 {
+  @apply mb-4 pt-2 text-2xl font-bold sm:text-3xl;
+}
+
+.c-content-area h3 {
+  @apply mb-3 pt-1 text-xl font-bold sm:text-2xl;
+}
+
+@media (min-width: 576px) {
+  .c-content-area h2 {
+    @apply mb-5 pt-3;
+  }
+
+  .c-content-area h3 {
+    @apply mb-4 pt-1.5;
+  }
+}
+
+.c-content-area p {
+  @apply mb-6 text-lg leading-8;
+}
+
+.c-content-area p:last-child {
+  @apply mb-0;
+}
+
+.c-content-area ul {
+  @apply mb-6 ml-8;
+}
+
+.c-content-area :is(li, ol) {
+  @apply mb-2 list-disc text-lg leading-8;
+}
+
+.c-content-area a {
+  @apply text-sky-600 underline focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-current dark:text-sky-300;
+}
+
+.c-content-area--dark-bg a {
+  @apply text-sky-300;
+}
+
+.c-content-area :is(a:hover, a:focus) {
+  @apply underline;
+}
+
+.c-content-area .wp-block-image {
+  @apply -ml-4 -mr-4 mb-7 dark:brightness-90;
+}
+
+.c-content-area .wp-block-image .wp-element-caption {
+  @apply ml-4 mr-4;
+}
+
+@media (min-width: 768px) {
+  .c-content-area .wp-block-image {
+    @apply ml-0 mr-0;
+  }
+}
+
+.c-content-area .wp-block-image figcaption {
+  @apply mt-2 text-center text-sm italic;
+}

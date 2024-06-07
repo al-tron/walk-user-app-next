@@ -1,0 +1,7 @@
+.c-topo-bg {
+  background-image: url('/img/layout/topo-bg.svg'), linear-gradient(to bottom left, #233c27, #4f7354);
+}
+
+.dark .dark\:c-topo-bg--dark {
+  background-image: url('/img/layout/topo-bg--dark.svg'), linear-gradient(to bottom left, #0f172a, #334155);
+}
