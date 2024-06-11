@@ -61,6 +61,7 @@ export const walkSlugsQuery = gql`
     }
   }
 `
+
 export const walkCardsDataQuery = gql`
   query WalkCards($count: Int) {
     walks(first: $count, where: { orderby: { field: DATE, order: DESC } }) {

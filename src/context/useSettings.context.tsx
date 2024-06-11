@@ -1,11 +1,11 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { createContext, useContext, useState, useEffect, Dispatch, SetStateAction, ReactElement } from 'react'
 
 const SettingsContext = createContext<SettingsContextType>(null)
 export const useSettingsContext = () => useContext(SettingsContext)
 
-export const SettingsContextProvider = ({ children }: { children: React.ReactElement }) => {
+export const SettingsContextProvider = ({ children }: { children: ReactElement }) => {
   const [isImperial, setIsImperial] = useState(false)
 
   useEffect(() => {

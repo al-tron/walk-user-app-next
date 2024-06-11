@@ -1,15 +1,28 @@
 import { cache } from 'react'
 import { cookies } from 'next/headers'
 
+import { prismaClient } from '@/lib/prisma/prismaClient'
 import { lucia } from '@/lib/lucia/lucia'
 
 export const validateRequest = cache(async () => {
+  try {
+    // This is just to check if database is available and throw an error if it's not.
+    await prismaClient.$queryRaw`SELECT 1`
+  } catch {
+    return {
+      user: null,
+      session: null,
+      dbError: true,
+    }
+  }
+
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
 
   if (!sessionId)
     return {
       user: null,
       session: null,
+      dbError: null,
     }
 
   const { user, session } = await lucia.validateSession(sessionId)
@@ -31,6 +44,7 @@ export const validateRequest = cache(async () => {
   return {
     user,
     session,
+    dbError: null,
   }
 })
 

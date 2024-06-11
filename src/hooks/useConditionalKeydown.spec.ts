@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { useConditionalKeydown } from './useConditionalKeydown.hook'

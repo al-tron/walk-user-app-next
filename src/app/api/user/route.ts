@@ -2,7 +2,9 @@ import { validateRequest } from '@/lib/auth'
 
 export const GET = async () => {
   try {
-    const { user } = await validateRequest()
+    const { user, dbError } = await validateRequest()
+
+    if (dbError) throw new Error()
 
     return Response.json({ data: user }, { status: 200 })
   } catch {
