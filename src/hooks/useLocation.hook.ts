@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export const useLocation = () => {
-  const [location, setLocation] = useState<{
-    latitude: number
-    longitude: number
-  } | null>(null)
+  const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [hasGeoCapabilities, setHasGeoCapabilities] = useState(false)
 
