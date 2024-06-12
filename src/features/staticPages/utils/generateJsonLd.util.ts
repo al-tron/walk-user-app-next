@@ -1,14 +1,8 @@
 import { PageRoutes } from '@/consts/routes'
+
 import { StaticPageConstTypes } from '../staticPages.types'
 
-export const generateJsonLd = (
-  siteName: string,
-  type: 'WebPage' | 'ContactPage',
-  title: string,
-  slugConst: StaticPageConstTypes,
-  date?: string,
-  modified?: string,
-) => ({
+export const generateJsonLd = ({ siteName, type, title, slugConst, date, modified }: GenerateJsonLdParams) => ({
   '@context': 'https://schema.org',
   '@type': type,
   name: title,
@@ -28,3 +22,12 @@ export const generateJsonLd = (
     url: PageRoutes.HOME,
   },
 })
+
+type GenerateJsonLdParams = {
+  siteName: string
+  type: 'WebPage' | 'ContactPage'
+  title: string
+  slugConst: StaticPageConstTypes
+  date?: string
+  modified?: string
+}

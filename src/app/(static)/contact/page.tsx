@@ -34,7 +34,9 @@ const Contact: NextPage = async () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateJsonLd(siteName, 'ContactPage', title, SLUG.const)),
+          __html: JSON.stringify(
+            generateJsonLd({ siteName: siteName, type: 'ContactPage', title: title, slugConst: SLUG.const }),
+          ),
         }}
       />
     </>

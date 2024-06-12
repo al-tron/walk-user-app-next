@@ -26,7 +26,16 @@ const PrivacyPolicy: NextPage = async () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateJsonLd(siteName, 'WebPage', title, SLUG.const, date, modified)),
+          __html: JSON.stringify(
+            generateJsonLd({
+              siteName: siteName,
+              type: 'WebPage',
+              title: title,
+              slugConst: SLUG.const,
+              date: date,
+              modified: modified,
+            }),
+          ),
         }}
       />
     </>

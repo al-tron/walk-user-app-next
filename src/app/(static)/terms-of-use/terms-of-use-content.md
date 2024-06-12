@@ -1,7 +1,7 @@
 ---
 title: 'Terms of Use'
-date: '2023-11-05'
-modified: '2023-11-05'
+date: '2023-11-05' <!-- yyyy-mm-dd -->
+modified: '2023-11-05' <!-- yyyy-mm-dd -->
 ---
 
 By using {{SITE_NAME}} and accessing this website/app or any of our other content channels, including but not limited to: social media, emails, downloads and physical media, you agree to be legally bound by the terms below. If you do not agree to the terms stated leave the website/app immediately.

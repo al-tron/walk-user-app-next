@@ -1,7 +1,7 @@
 ---
 title: 'Privacy Policy'
-date: '2023-11-05'
-modified: '2024-05-14'
+date: '2023-11-05' <!-- yyyy-mm-dd -->
+modified: '2024-05-14' <!-- yyyy-mm-dd -->
 ---
 
 You may have noticed that the {{SITE_NAME}} website/app doesn't display a cookie banner asking for various permissions on your first visit.
