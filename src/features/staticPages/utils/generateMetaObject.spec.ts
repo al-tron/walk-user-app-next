@@ -1,7 +1,8 @@
 import { ResolvedMetadata } from 'next'
 
-import { generateMetaObject } from './generateMetaObject.util'
 import { PageRoutes } from '@/consts/routes'
+
+import { generateMetaObject } from './generateMetaObject.util'
 
 const PARENT_METADATA_MOCK = {
   openGraph: {
@@ -30,6 +31,13 @@ describe('generateMetaObject.util', () => {
       },
     }
 
-    expect(generateMetaObject('Walk Test', 'Page Title', 'TERMS', PARENT_METADATA_MOCK)).toEqual(EXPECTED_OUTPUT)
+    expect(
+      generateMetaObject({
+        siteName: 'Walk Test',
+        title: 'Page Title',
+        slugConst: 'TERMS',
+        parent: PARENT_METADATA_MOCK,
+      }),
+    ).toEqual(EXPECTED_OUTPUT)
   })
 })

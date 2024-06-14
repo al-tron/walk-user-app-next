@@ -10,11 +10,18 @@ import { prismaClient } from './prismaClient'
  */
 const main = async () => {
   // Sync baggable types with walk-content-service.
-  await prismaClient.baggableTypes.deleteMany()
-
   const { baggableTypes } = await gqlClient(baggableTypesQuery, BaggableTypesResponseSchema)
 
-  console.log(baggableTypes.nodes) // eslint-disable-line no-console
+  await prismaClient.baggableTypes.deleteMany()
+
+  await prismaClient.baggableTypes.createMany({
+    data: baggableTypes.nodes.map((baggableType) => ({
+      id: baggableType.databaseId,
+      type: baggableType.baggable_type_taxonomy.singularName,
+    })),
+  })
+
+  // Sync baggables with walk-content-service.
 }
 
 const baggableTypesQuery = gql`

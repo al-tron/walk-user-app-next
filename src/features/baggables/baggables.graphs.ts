@@ -21,7 +21,7 @@ export const baggablesListBySlugQuery = gql`
         pageTitle
         pageDescription
       }
-      contentNodes(first: 508, where: { orderby: { field: HEIGHT, order: DESC } }) {
+      contentNodes(first: 508) {
         nodes {
           ... on Baggable {
             slug

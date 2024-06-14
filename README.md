@@ -39,7 +39,7 @@ You'll also need to add some credentials to the following variables in your `.en
 
 You won't have to follow the above process each time, once the container has been set up originally you may just need to start it up again.
 
-You can do this via the Docker Desktop UI and clicking the play button next to the `walk-user-app-postgres` container, or by running the following command in the terminal: `docker start walk-user-app-postgres`.
+You can do this via the Docker Desktop UI and clicking the play button next to the `walk-user-app-postgres` container, or by running the following command in the terminal: `docker start walk-user-app-postgres`, although it seems like the command only works when docker desktop is actually open anyway for some reason.
 
 ## Terminology
 

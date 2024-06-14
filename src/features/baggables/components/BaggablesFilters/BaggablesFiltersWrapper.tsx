@@ -5,17 +5,17 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import {
   A_TO_Z_LABEL,
   CLOSEST_FIRST_LABEL,
-  DISTANCE,
-  DROP,
+  SORT_BY_DISTANCE,
+  SORT_BY_DROP,
   FURTHEST_FIRST_LABEL,
   HIGHEST_FIRST_LABEL,
   LOWEST_FIRST_LABEL,
-  NAME,
+  SORT_BY_NAME,
   ORDER_PARAM_NAME,
   QUERY_PARAM_NAME,
-  SORT_BY_DEFAULT,
-  SORT_BY_DEFAULT_ICON,
-  SORT_BY_DISTANCE,
+  SORT_BY_HEIGHT,
+  SORT_BY_HEIGHT_ICON,
+  SORT_BY_DISTANCE_ICON,
   SORT_BY_DROP_ICON,
   SORT_BY_NAME_ICON,
   SORT_ORDER_DEFAULT,
@@ -31,18 +31,12 @@ import { capitaliseWords } from '@/utils/capitaliseWords.util'
 import { BaggablesFiltersUi } from './BaggablesFiltersUi'
 
 const SORT_BY_ICONS = {
-  [SORT_BY_DEFAULT]: SORT_BY_DEFAULT_ICON,
-  [DROP]: SORT_BY_DROP_ICON,
-  [NAME]: SORT_BY_NAME_ICON,
-  [DISTANCE]: SORT_BY_DISTANCE,
+  [SORT_BY_HEIGHT]: SORT_BY_HEIGHT_ICON,
+  [SORT_BY_DROP]: SORT_BY_DROP_ICON,
+  [SORT_BY_NAME]: SORT_BY_NAME_ICON,
+  [SORT_BY_DISTANCE]: SORT_BY_DISTANCE_ICON,
 }
 
-/**
- * @docs/wrapperUiPattern
- * This component provides client functionality to the adjacent UI component. This is so that a non-functional,
- * disabled or static version of the component can be used as a pre-rendered server component in the `fallback` prop of
- * a `Suspense` boundary to act as a loading skeleton, whilst the client side aspects of the component are loading.
- */
 export const BaggablesFiltersWrapper = ({ baggableTypeName }: { baggableTypeName: string }) => {
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -51,7 +45,7 @@ export const BaggablesFiltersWrapper = ({ baggableTypeName }: { baggableTypeName
   const { hasGeoCapabilities } = useLocation()
 
   const searchTerm = searchParams.get(QUERY_PARAM_NAME)?.toString() || ''
-  const sortBy = (searchParams.get(SORT_PARAM_NAME)?.toString() as SortByType) || SORT_BY_DEFAULT
+  const sortBy = (searchParams.get(SORT_PARAM_NAME)?.toString() as SortByType) || SORT_BY_HEIGHT
   const sortOrder = (searchParams.get(ORDER_PARAM_NAME)?.toString() as SortOrderType) || SORT_ORDER_DEFAULT
 
   const handleSearch = (term: string) => {
@@ -69,7 +63,7 @@ export const BaggablesFiltersWrapper = ({ baggableTypeName }: { baggableTypeName
   const handleSortByAndOrder = (
     paramToSet: typeof SORT_PARAM_NAME | typeof ORDER_PARAM_NAME,
     fieldValue: SortByType | SortOrderType,
-    defaultFieldValue: typeof SORT_BY_DEFAULT | typeof SORT_ORDER_DEFAULT,
+    defaultFieldValue: typeof SORT_BY_HEIGHT | typeof SORT_ORDER_DEFAULT,
   ) => {
     const params = new URLSearchParams(searchParams)
 
@@ -90,13 +84,13 @@ export const BaggablesFiltersWrapper = ({ baggableTypeName }: { baggableTypeName
 
   const selectBoxOptions = () => {
     const defaultOptions = [
-      { name: capitaliseWords(SORT_BY_DEFAULT), value: SORT_BY_DEFAULT },
-      { name: capitaliseWords(DROP), value: DROP },
-      { name: capitaliseWords(NAME), value: NAME },
+      { name: capitaliseWords(SORT_BY_HEIGHT), value: SORT_BY_HEIGHT },
+      { name: capitaliseWords(SORT_BY_DROP), value: SORT_BY_DROP },
+      { name: capitaliseWords(SORT_BY_NAME), value: SORT_BY_NAME },
     ]
 
     if (hasGeoCapabilities) {
-      return [...defaultOptions, { name: 'Distance from your location', value: DISTANCE }]
+      return [...defaultOptions, { name: 'Distance from your location', value: SORT_BY_DISTANCE }]
     }
 
     return defaultOptions
@@ -116,7 +110,7 @@ export const BaggablesFiltersWrapper = ({ baggableTypeName }: { baggableTypeName
         handleSearch(event)
       }}
       handleSortBy={(event) => {
-        handleSortByAndOrder(SORT_PARAM_NAME, event as SortByType, SORT_BY_DEFAULT)
+        handleSortByAndOrder(SORT_PARAM_NAME, event as SortByType, SORT_BY_HEIGHT)
       }}
       handleListOrder={() => {
         if (sortOrder === SORT_ORDER_DEFAULT) {
@@ -132,16 +126,16 @@ export const BaggablesFiltersWrapper = ({ baggableTypeName }: { baggableTypeName
 
 const getOptionLabelBySortBy = (sortBy: SortByType, isChecked: boolean) => {
   switch (sortBy) {
-    case SORT_BY_DEFAULT:
+    case SORT_BY_HEIGHT:
       return isChecked ? HIGHEST_FIRST_LABEL : LOWEST_FIRST_LABEL
 
-    case DROP:
+    case SORT_BY_DROP:
       return isChecked ? HIGHEST_FIRST_LABEL : LOWEST_FIRST_LABEL
 
-    case NAME:
+    case SORT_BY_NAME:
       return isChecked ? A_TO_Z_LABEL : Z_TO_A_LABEL
 
-    case DISTANCE:
+    case SORT_BY_DISTANCE:
       return isChecked ? CLOSEST_FIRST_LABEL : FURTHEST_FIRST_LABEL
   }
 }

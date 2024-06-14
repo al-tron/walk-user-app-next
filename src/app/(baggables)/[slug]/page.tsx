@@ -7,8 +7,8 @@ import { z } from 'zod'
 
 import {
   HIGHEST_FIRST_LABEL,
-  SORT_BY_DEFAULT,
-  SORT_BY_DEFAULT_ICON,
+  SORT_BY_HEIGHT,
+  SORT_BY_HEIGHT_ICON,
   SORT_ORDER_DEFAULT,
 } from '@/features/baggables/baggables.consts'
 import { LatSchema, LngSchema, BasicPageProps, SlugArrayResponseSchema } from '@/types/types'
@@ -16,6 +16,7 @@ import { urlSlugMatcher } from '@/types/regex'
 
 import { gqlClient } from '@/lib/gqlClient'
 import { baggablesListBySlugQuery, baggableTypesSlugsQuery } from '@/features/baggables/baggables.graphs'
+import { sortBaggablesList } from '@/features/baggables/utils/sortBaggablesList.util'
 
 import { CurveBanner } from '@/components/CurveBanner/CurveBanner'
 import { Container } from '@/components/Container/Container'
@@ -61,9 +62,9 @@ const BaggablesIndex: NextPage<BasicPageProps> = async ({ params }) => {
           fallback={
             <BaggablesFiltersUi
               baggableTypeName={baggableTypeName}
-              sortBy={SORT_BY_DEFAULT}
+              sortBy={SORT_BY_HEIGHT}
               sortOrder={SORT_ORDER_DEFAULT}
-              sortByIcon={SORT_BY_DEFAULT_ICON}
+              sortByIcon={SORT_BY_HEIGHT_ICON}
               toggleCheckedOptionLabel={HIGHEST_FIRST_LABEL}
               disabled
             />
@@ -94,11 +95,15 @@ const BaggablesIndex: NextPage<BasicPageProps> = async ({ params }) => {
 
 const getBaggablesListData = async (slug: string) => {
   try {
-    const { baggableType } = await gqlClient(baggablesListBySlugQuery, BaggablesListResponseDataSchema, {
-      slug: slug,
-    })
+    const { baggableType: baggableTypeAndListData } = await gqlClient(
+      baggablesListBySlugQuery,
+      BaggablesListResponseDataSchema,
+      {
+        slug: slug,
+      },
+    )
 
-    const formattedBaggablesListData = baggableType.contentNodes.nodes.map((baggable) => ({
+    const formattedBaggablesListData = baggableTypeAndListData.contentNodes.nodes.map((baggable) => ({
       name: baggable.title,
       slug: baggable.slug,
       height: baggable.baggables.height,
@@ -107,13 +112,19 @@ const getBaggablesListData = async (slug: string) => {
       longitude: baggable.baggables.longitude,
     }))
 
+    const sortedBaggablesListData = sortBaggablesList({
+      sortBy: SORT_BY_HEIGHT,
+      sortOrder: SORT_ORDER_DEFAULT,
+      BaggablesListData: formattedBaggablesListData,
+    })
+
     return {
-      pageTitle: baggableType.baggable_type_taxonomy.pageTitle,
-      pageDescription: baggableType.baggable_type_taxonomy.pageDescription,
-      baggableTypeName: baggableType.name,
-      baggableTypeSlug: baggableType.slug,
-      count: baggableType.count,
-      listData: formattedBaggablesListData,
+      pageTitle: baggableTypeAndListData.baggable_type_taxonomy.pageTitle,
+      pageDescription: baggableTypeAndListData.baggable_type_taxonomy.pageDescription,
+      baggableTypeName: baggableTypeAndListData.name,
+      baggableTypeSlug: baggableTypeAndListData.slug,
+      count: baggableTypeAndListData.count,
+      listData: sortedBaggablesListData,
     }
   } catch {
     notFound()

@@ -55,7 +55,7 @@ export const generateMetadata = async ({}, parent: ResolvingMetadata): Promise<M
   const { siteName } = await getSiteNameAndMetaDescription()
   const resolvedParent = await parent
 
-  return generateMetaObject(siteName, title, SLUG.const, resolvedParent)
+  return generateMetaObject({ siteName: siteName, title: title, slugConst: SLUG.const, parent: resolvedParent })
 }
 
 export default Contact
