@@ -30,7 +30,7 @@ describe('sortBaggablesList.util', () => {
       searchString: 'an',
       sortBy: SORT_BY_HEIGHT,
       sortOrder: SORT_ORDER_DEFAULT,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -51,7 +51,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_HEIGHT,
       sortOrder: SORT_ORDER_DEFAULT,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -74,7 +74,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_HEIGHT,
       sortOrder: SORT_ORDER_REVERSED,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -97,7 +97,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_DROP,
       sortOrder: SORT_ORDER_DEFAULT,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -120,7 +120,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_DROP,
       sortOrder: SORT_ORDER_REVERSED,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -143,7 +143,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_NAME,
       sortOrder: SORT_ORDER_DEFAULT,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -166,7 +166,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_NAME,
       sortOrder: SORT_ORDER_REVERSED,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -189,7 +189,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_DISTANCE,
       sortOrder: SORT_ORDER_DEFAULT,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -212,7 +212,7 @@ describe('sortBaggablesList.util', () => {
     const sortedList = sortBaggablesList({
       sortBy: SORT_BY_DISTANCE,
       sortOrder: SORT_ORDER_REVERSED,
-      BaggablesListData: MOCK_LIST_DATA,
+      baggablesListData: MOCK_LIST_DATA,
     })
 
     expect(sortedList).toEqual([
@@ -229,5 +229,16 @@ describe('sortBaggablesList.util', () => {
       { name: 'An Item', slug: 'an-item', height: 4, drop: 1, latitude: 10, longitude: 12, distanceFromUser: 1 },
       { name: 'Item Four', slug: 'item-four', height: 9, drop: 5, latitude: 10, longitude: 12, distanceFromUser: 0 },
     ])
+  })
+
+  it('Should return array exactly as passed in, in the `baggablesListData` argument when `sortBy` is undefined', () => {
+    const sortedList = sortBaggablesList({
+      // @ts-expect-error
+      sortBy: undefined,
+      sortOrder: SORT_ORDER_REVERSED,
+      baggablesListData: MOCK_LIST_DATA,
+    })
+
+    expect(sortedList).toEqual(MOCK_LIST_DATA)
   })
 })

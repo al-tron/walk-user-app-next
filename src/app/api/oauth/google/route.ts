@@ -70,7 +70,6 @@ export const GET = async (req: NextRequest) => {
             name: googleUserData.name,
             givenName: googleUserData.given_name,
             familyName: googleUserData.family_name,
-            locale: googleUserData.locale,
             profilePictureUrl: googleUserData.picture,
           },
         })
@@ -120,5 +119,4 @@ type GoogleUserType = {
   given_name: string
   family_name: string
   picture: string
-  locale: string
 }

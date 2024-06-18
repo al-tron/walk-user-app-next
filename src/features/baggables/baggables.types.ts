@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 import {
   A_TO_Z_LABEL,
   CLOSEST_FIRST_LABEL,
@@ -12,6 +14,7 @@ import {
   SORT_ORDER_REVERSED,
   Z_TO_A_LABEL,
 } from './baggables.consts'
+import { LatSchema, LngSchema } from '@/types/types'
 
 export type SortByType = typeof SORT_BY_HEIGHT | typeof SORT_BY_DROP | typeof SORT_BY_NAME | typeof SORT_BY_DISTANCE
 export type SortOrderType = typeof SORT_ORDER_DEFAULT | typeof SORT_ORDER_REVERSED
@@ -42,3 +45,10 @@ export type BaggableListItemWithRelativePosition = BaggableListItem & {
   distanceFromUser: number
   bearingFromUser: number
 }
+
+export const BaggablesGeoDataResponseSchema = z.object({
+  height: z.number(),
+  drop: z.number(),
+  latitude: LatSchema,
+  longitude: LngSchema,
+})

@@ -79,7 +79,7 @@ export const BaggablesListWrapper = ({
           searchString: searchTerm,
           sortBy: sortBy,
           sortOrder: sortOrder,
-          BaggablesListData: baggablesListWithRelativePosition,
+          baggablesListData: baggablesListWithRelativePosition,
         }),
       )
     } else {
@@ -88,7 +88,7 @@ export const BaggablesListWrapper = ({
           searchString: searchTerm,
           sortBy: sortBy,
           sortOrder: sortOrder,
-          BaggablesListData: staticBaggablesList,
+          baggablesListData: staticBaggablesList,
         }),
       )
     }

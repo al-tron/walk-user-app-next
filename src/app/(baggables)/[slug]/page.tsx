@@ -11,8 +11,9 @@ import {
   SORT_BY_HEIGHT_ICON,
   SORT_ORDER_DEFAULT,
 } from '@/features/baggables/baggables.consts'
-import { LatSchema, LngSchema, BasicPageProps, SlugArrayResponseSchema } from '@/types/types'
 import { urlSlugMatcher } from '@/types/regex'
+import { BasicPageProps, SlugArrayResponseSchema } from '@/types/types'
+import { BaggablesGeoDataResponseSchema } from '@/features/baggables/baggables.types'
 
 import { gqlClient } from '@/lib/gqlClient'
 import { baggablesListBySlugQuery, baggableTypesSlugsQuery } from '@/features/baggables/baggables.graphs'
@@ -115,7 +116,7 @@ const getBaggablesListData = async (slug: string) => {
     const sortedBaggablesListData = sortBaggablesList({
       sortBy: SORT_BY_HEIGHT,
       sortOrder: SORT_ORDER_DEFAULT,
-      BaggablesListData: formattedBaggablesListData,
+      baggablesListData: formattedBaggablesListData,
     })
 
     return {
@@ -151,12 +152,7 @@ const BaggablesListResponseDataSchema = z.object({
         z.object({
           slug: z.string().regex(urlSlugMatcher),
           title: z.string(),
-          baggables: z.object({
-            height: z.number(),
-            drop: z.number(),
-            latitude: LatSchema,
-            longitude: LngSchema,
-          }),
+          baggables: BaggablesGeoDataResponseSchema,
         }),
       ),
     }),

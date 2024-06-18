@@ -15,11 +15,11 @@ model User {
   name              String
   givenName         String
   familyName        String
-  locale            String
   profilePictureUrl String
   createdAt         DateTime       @default(now()) @db.Timestamptz()
   updatedAt         DateTime       @updatedAt @db.Timestamptz()
   deletedAt         DateTime?      @db.Timestamptz()
+  bags              Bags[]
   oauthAccount      OauthAccount[]
   sessions          Session[]
 }
@@ -51,28 +51,28 @@ model Session {
 }
 
 model Baggables {
-  id            Int                      @id
+  id            Int             @id
   name          String
   slug          String
   height        Int
   drop          Int
   latitude      Float
   longitude     Float
-  baggableTypes BaggablesBaggableTypes[]
+  bags          Bags[]
+  baggableTypes BaggableTypes[]
 }
 
 model BaggableTypes {
-  id        Int                      @id
-  type      String                   @unique
-  baggables BaggablesBaggableTypes[]
+  id        Int         @id
+  type      String      @unique
+  baggables Baggables[]
 }
 
-model BaggablesBaggableTypes {
-  id             Int           @id @default(autoincrement())
-  baggableId     Int
-  baggableTypeId Int
-  baggable       Baggables     @relation(fields: [baggableId], references: [id])
-  baggableType   BaggableTypes @relation(fields: [baggableTypeId], references: [id])
-
-  @@unique([baggableId, baggableTypeId])
+model Bags {
+  id          String    @id
+  userId      String
+  baggablesId Int
+  baggedAt    DateTime  @db.Timestamptz()
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Baggable    Baggables @relation(fields: [baggablesId], references: [id], onDelete: Cascade)
 }

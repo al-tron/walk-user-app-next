@@ -2,12 +2,13 @@
 
 import ArrowUpCircleIcon from '@heroicons/react/24/outline/ArrowUpCircleIcon'
 
+import { PageRoutes } from '@/consts/routes'
+
 import { useValueUnits } from '@/hooks/useValueUnits.hook'
 import { cardinalPointFromDegrees } from '../../utils/cardinalPointFromDegrees.util'
 
 import { Title } from '@/components/Title/Title'
 import { CardWrapper } from '@/components/CardWrapper/CardWrapper'
-import { PageRoutes } from '@/consts/routes'
 
 export const BaggableCard = ({
   name,
